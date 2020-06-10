@@ -14,6 +14,8 @@
 </head>
 
 <body>
+  testestset
+
   <div class="container">
     <div class="jumbotron heading-center">
       <h1 class="text-center"><span class="fa fa-fire"></span>Hot Restaurant</h1>
@@ -62,7 +64,9 @@
           email: $("#email").val().trim(),
           uniqueID: $("#customerID").val().trim()
         };
-        $.post("/api/reservationList", newReservation)
+        console.log(newReservation);
+        console.log("this is changed");
+        $.post("/reserve", newReservation)
           .then(function (data) {
             console.log("reserve.html", data);
             alert("Reserving table for dinner");
