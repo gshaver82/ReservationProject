@@ -58,12 +58,38 @@
 </body>
 <!--tables.html AJAX GET data-->
 <script type="text/javascript">
-    function runTableQuery() {
-        $.ajax({ url: "/api/tables", method: "GET" })
-            .then(function (tableInfo) {
-                console.log(tableInfo);
-            })
+    function runTableQuery(){
+        $.ajax({ url: "/api/tables", method: "GET"})
+        .then(function(tableInfo){
+            console.log(tableInfo);
+            console.log("-----------------------------");
+            //loop through tableInfo
+            for (var i = 0; i < tableInfo.length; i++){
+                var tableList = $("#tableList");
+                var listItem = $("<li class='list-group-item mt-4'>");
+                listItem.append(
+                    $("<h2>").text("Table #" + (i + 1)),
+                    $("<hr>"),
+                    $("<h2>").text("Name: " + tableInfo[i].cusomterName),
+                    $("<h2>").text("Email: " + tableInfo[i].customerEmail),
+                    $("<h2>").text("ID: " + tableInfo[i].customerID),
+                    $("<h2>").text("Phone: " + tableInfo[i].phoneNumber)
+                );
+                tableList.append(listItem);
+            }
+        });
     }
+    // clear table function
+    function clearTable(){
+        alert("Clearing...");
+        $.ajax({ url: "/api/clear", method: "POST"}).then(function(){
+            $("#waitList").empty();
+            $("#tableList").empty();
+        });
+    }
+    $("#clear").on("click", clearTable);
+    runTableQuery();
+    runWaitListQuery();
 </script>
 
 </html>
